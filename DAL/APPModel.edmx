@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="APP_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Professions">
+          <Key>
+            <PropertyRef Name="IdProf" />
+          </Key>
+          <Property Name="IdProf" Type="int" Nullable="false" />
+          <Property Name="Profession" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Debut_Prof" Type="datetime" Nullable="false" />
+          <Property Name="Fin_Prof" Type="datetime" />
+          <Property Name="Prof_Jazz" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Bareme" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Professions_Lgn_Tarifs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProf" Type="int" Nullable="false" />
+          <Property Name="IdStatutTns" Type="int" Nullable="false" />
+          <Property Name="Code Collège" Type="int" Nullable="false" />
+          <Property Name="IdTarifLigne" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ID_Regime_RO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Statuts_Tns">
+          <Key>
+            <PropertyRef Name="IdStatutTns" />
+          </Key>
+          <Property Name="IdStatutTns" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatutTns" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Professions_Lgn_Tarifs_Professions">
+          <End Role="Professions" Type="Self.Professions" Multiplicity="1" />
+          <End Role="Professions_Lgn_Tarifs" Type="Self.Professions_Lgn_Tarifs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professions">
+              <PropertyRef Name="IdProf" />
+            </Principal>
+            <Dependent Role="Professions_Lgn_Tarifs">
+              <PropertyRef Name="IdProf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Professions_Lgn_Tarifs_Statuts_Tns">
+          <End Role="Statuts_Tns" Type="Self.Statuts_Tns" Multiplicity="1" />
+          <End Role="Professions_Lgn_Tarifs" Type="Self.Professions_Lgn_Tarifs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuts_Tns">
+              <PropertyRef Name="IdStatutTns" />
+            </Principal>
+            <Dependent Role="Professions_Lgn_Tarifs">
+              <PropertyRef Name="IdStatutTns" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="APP_DBModelStoreContainer">
+          <EntitySet Name="Professions" EntityType="Self.Professions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professions_Lgn_Tarifs" EntityType="Self.Professions_Lgn_Tarifs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statuts_Tns" EntityType="Self.Statuts_Tns" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Professions_Lgn_Tarifs_Professions" Association="Self.FK_Professions_Lgn_Tarifs_Professions">
+            <End Role="Professions" EntitySet="Professions" />
+            <End Role="Professions_Lgn_Tarifs" EntitySet="Professions_Lgn_Tarifs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Professions_Lgn_Tarifs_Statuts_Tns" Association="Self.FK_Professions_Lgn_Tarifs_Statuts_Tns">
+            <End Role="Statuts_Tns" EntitySet="Statuts_Tns" />
+            <End Role="Professions_Lgn_Tarifs" EntitySet="Professions_Lgn_Tarifs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="APP_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Professions">
+          <Key>
+            <PropertyRef Name="IdProf" />
+          </Key>
+          <Property Name="IdProf" Type="Int32" Nullable="false" />
+          <Property Name="Profession" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Debut_Prof" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Fin_Prof" Type="DateTime" Precision="3" />
+          <Property Name="Prof_Jazz" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Bareme" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Professions_Lgn_Tarifs" Relationship="APP_DBModel.FK_Professions_Lgn_Tarifs_Professions" FromRole="Professions" ToRole="Professions_Lgn_Tarifs" />
+        </EntityType>
+        <EntityContainer Name="APP_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Professions" EntityType="Self.Professions" />
+          <EntitySet Name="Professions_Lgn_Tarifs" EntityType="APP_DBModel.Professions_Lgn_Tarifs" />
+          <AssociationSet Name="FK_Professions_Lgn_Tarifs_Professions" Association="APP_DBModel.FK_Professions_Lgn_Tarifs_Professions">
+            <End Role="Professions" EntitySet="Professions" />
+            <End Role="Professions_Lgn_Tarifs" EntitySet="Professions_Lgn_Tarifs" />
+          </AssociationSet>
+          <EntitySet Name="Statuts_Tns" EntityType="APP_DBModel.Statuts_Tns" />
+          <AssociationSet Name="FK_Professions_Lgn_Tarifs_Statuts_Tns" Association="APP_DBModel.FK_Professions_Lgn_Tarifs_Statuts_Tns">
+            <End Role="Statuts_Tns" EntitySet="Statuts_Tns" />
+            <End Role="Professions_Lgn_Tarifs" EntitySet="Professions_Lgn_Tarifs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Professions_Lgn_Tarifs">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProf" Type="Int32" Nullable="false" />
+          <Property Name="IdStatutTns" Type="Int32" Nullable="false" />
+          <Property Name="Code_Collège" Type="Int32" Nullable="false" />
+          <Property Name="IdTarifLigne" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Regime_RO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Professions" Relationship="APP_DBModel.FK_Professions_Lgn_Tarifs_Professions" FromRole="Professions_Lgn_Tarifs" ToRole="Professions" />
+          <NavigationProperty Name="Statuts_Tns" Relationship="APP_DBModel.FK_Professions_Lgn_Tarifs_Statuts_Tns" FromRole="Professions_Lgn_Tarifs" ToRole="Statuts_Tns" />
+        </EntityType>
+        <Association Name="FK_Professions_Lgn_Tarifs_Professions">
+          <End Type="APP_DBModel.Professions" Role="Professions" Multiplicity="1" />
+          <End Type="APP_DBModel.Professions_Lgn_Tarifs" Role="Professions_Lgn_Tarifs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professions">
+              <PropertyRef Name="IdProf" />
+            </Principal>
+            <Dependent Role="Professions_Lgn_Tarifs">
+              <PropertyRef Name="IdProf" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Statuts_Tns">
+          <Key>
+            <PropertyRef Name="IdStatutTns" />
+          </Key>
+          <Property Name="IdStatutTns" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatutTns" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Professions_Lgn_Tarifs" Relationship="APP_DBModel.FK_Professions_Lgn_Tarifs_Statuts_Tns" FromRole="Statuts_Tns" ToRole="Professions_Lgn_Tarifs" />
+        </EntityType>
+        <Association Name="FK_Professions_Lgn_Tarifs_Statuts_Tns">
+          <End Type="APP_DBModel.Statuts_Tns" Role="Statuts_Tns" Multiplicity="1" />
+          <End Type="APP_DBModel.Professions_Lgn_Tarifs" Role="Professions_Lgn_Tarifs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Statuts_Tns">
+              <PropertyRef Name="IdStatutTns" />
+            </Principal>
+            <Dependent Role="Professions_Lgn_Tarifs">
+              <PropertyRef Name="IdStatutTns" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="APP_DBModelStoreContainer" CdmEntityContainer="APP_DBEntities">
+          <EntitySetMapping Name="Professions">
+            <EntityTypeMapping TypeName="APP_DBModel.Professions">
+              <MappingFragment StoreEntitySet="Professions">
+                <ScalarProperty Name="IdProf" ColumnName="IdProf" />
+                <ScalarProperty Name="Profession" ColumnName="Profession" />
+                <ScalarProperty Name="Debut_Prof" ColumnName="Debut_Prof" />
+                <ScalarProperty Name="Fin_Prof" ColumnName="Fin_Prof" />
+                <ScalarProperty Name="Prof_Jazz" ColumnName="Prof_Jazz" />
+                <ScalarProperty Name="Bareme" ColumnName="Bareme" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Professions_Lgn_Tarifs">
+            <EntityTypeMapping TypeName="APP_DBModel.Professions_Lgn_Tarifs">
+              <MappingFragment StoreEntitySet="Professions_Lgn_Tarifs">
+                <ScalarProperty Name="ID_Regime_RO" ColumnName="ID_Regime_RO" />
+                <ScalarProperty Name="IdTarifLigne" ColumnName="IdTarifLigne" />
+                <ScalarProperty Name="Code_Collège" ColumnName="Code Collège" />
+                <ScalarProperty Name="IdStatutTns" ColumnName="IdStatutTns" />
+                <ScalarProperty Name="IdProf" ColumnName="IdProf" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statuts_Tns">
+            <EntityTypeMapping TypeName="APP_DBModel.Statuts_Tns">
+              <MappingFragment StoreEntitySet="Statuts_Tns">
+                <ScalarProperty Name="StatutTns" ColumnName="StatutTns" />
+                <ScalarProperty Name="IdStatutTns" ColumnName="IdStatutTns" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
