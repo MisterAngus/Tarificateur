@@ -9,20 +9,20 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using DAL;
+using Business.Lists;
 
 namespace Tarificateur.Controllers
 {
     public class ProfessionsController : ApiController
     {
-        private APP_DBEntities db = new APP_DBEntities();
 
         /// <summary>
-        /// Get Professions List
+        /// Retourne la liste professions
         /// </summary>
-        public List<Models.Profession> GetProfessions()
+        public List<Business.Entities.Profession> GetProfessions()
         {
-            return db.Professions.Where(e => e.Fin_Prof == null || e.Fin_Prof > DateTime.Today).Select(e => new Models.Profession() { IdProf = e.IdProf, Name = e.Profession }).ToList();
+            var professions = Professions.Get;
+            return professions;
         }
 
 

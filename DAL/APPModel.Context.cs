@@ -28,5 +28,11 @@ namespace DAL
         public virtual DbSet<Professions> Professions { get; set; }
         public virtual DbSet<Professions_Lgn_Tarifs> Professions_Lgn_Tarifs { get; set; }
         public virtual DbSet<Statuts_Tns> Statuts_Tns { get; set; }
+        public virtual DbSet<Collèges> Collèges { get; set; }
+        public virtual DbSet<Fournisseurs_Garanties_Prév> Fournisseurs_Garanties_Prév { get; set; }
+        public virtual DbSet<Version_Gar_Tarif> Version_Gar_Tarif { get; set; }
+        public virtual DbSet<Version_Garanties_Prev> Version_Garanties_Prev { get; set; }
+        public virtual DbSet<Tarifs_Coef_Ages> Tarifs_Coef_Ages { get; set; }
+        public virtual DbSet<Tarifs_Coef_Bases> Tarifs_Coef_Bases { get; set; }
     }
 }

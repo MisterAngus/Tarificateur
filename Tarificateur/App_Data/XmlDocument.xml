@@ -479,31 +479,75 @@
             <summary>
             Initializes a new instance of the <see cref="T:Tarificateur.Areas.HelpPage.XmlDocumentationProvider"/> class.
             </summary>
-            <param name="documentPath">The physical path to XML document.</param>
+            <param name="appDataPath">The physical path to XML document.</param>
         </member>
-        <member name="M:Tarificateur.Controllers.GarantiesController.GetGaranties(System.DateTime,System.Int32,System.Int32,System.Double)">
+        <member name="T:Tarificateur.Controllers.GarantiesController.Parameter">
             <summary>
-            Get Garanties
+            Paramètre pour récupérer la garantie
             </summary>
         </member>
-        <member name="M:Tarificateur.Controllers.GarantiesController.GetGaranties(System.DateTime,System.Int32,System.Int32,System.Double,System.Nullable{System.Double})">
+        <member name="P:Tarificateur.Controllers.GarantiesController.Parameter.BirthDay">
             <summary>
-            Get Garanties
+            Date de naissance. L'âge du candidat à l'assurance doit être compris entre 18 et 60 ans pour souscrire.
             </summary>
+        </member>
+        <member name="P:Tarificateur.Controllers.GarantiesController.Parameter.IdProf">
+            <summary>
+            Profession. Id de la profession (ex : 1020)
+            </summary>
+        </member>
+        <member name="P:Tarificateur.Controllers.GarantiesController.Parameter.IdStatut">
+            <summary>
+            Statut. Id du statut
+            </summary>
+        </member>
+        <member name="P:Tarificateur.Controllers.GarantiesController.Parameter.NbPass">
+            <summary>
+            Montant annuel à assurer (traitement de base). Le montant du traitement de base à assurer doit correspondre au revenu net déclaré à l'administration fiscale l'année N-1( rémunération, dividendes…) éventuellement majoré d'au plus 80%.
+            </summary>
+        </member>
+        <member name="P:Tarificateur.Controllers.GarantiesController.Parameter.TxCourtier">
+            <summary>
+            Taux courtier. Entre 0 et 3% (ex : 0.11)
+            </summary>
+        </member>
+        <member name="P:Tarificateur.Controllers.GarantiesController.Parameter.Salarie">
+            <summary>
+            Tout entrepreneur qui emploie au moins un salarié bénéficie de l'avantage Employeur : -10% appliqués sur la garantie incapacité et rachat de franchise.
+            </summary>
+        </member>
+        <member name="M:Tarificateur.Controllers.GarantiesController.GetGaranties(Tarificateur.Controllers.GarantiesController.Parameter)">
+            <summary>
+            Retourne la garantie
+            </summary>
+            <param name="parameter"></param>
+            <returns>Garantie</returns>
+        </member>
+        <member name="M:Tarificateur.Controllers.GarantiesController.GetGaranties(System.DateTime,System.Int32,System.Int32,System.Double,System.Nullable{System.Double},System.Nullable{System.Boolean})">
+            <summary>
+            Retourne la garantie
+            </summary>
+            <param name="BirthDay">Date de naissance. L'âge du candidat à l'assurance doit être compris entre 18 et 60 ans pour souscrire.</param>
+            <param name="IdProf">Profession. Id de la profession (ex : 1020)</param>
+            <param name="IdStatut">Statut. Id du statut</param>
+            <param name="NbPass">Montant annuel à assurer (traitement de base). Le montant du traitement de base à assurer doit correspondre au revenu net déclaré à l'administration fiscale l'année N-1( rémunération, dividendes…) éventuellement majoré d'au plus 80%.</param>
+            <param name="TxCourtier">Taux courtier. Entre 0 et 3% (ex : 0.11)</param>
+            <param name="Salarie">Tout entrepreneur qui emploie au moins un salarié bénéficie de l'avantage Employeur : -10% appliqués sur la garantie incapacité et rachat de franchise.</param>
+            <returns></returns>
         </member>
         <member name="M:Tarificateur.Controllers.ProfessionsController.GetProfessions">
             <summary>
-            Get Professions List
+            Retourne la liste professions
             </summary>
         </member>
         <member name="M:Tarificateur.Controllers.StatutsController.GetStatuts">
             <summary>
-            Get Status List
+            Retourne la listes des statuts
             </summary>
         </member>
         <member name="M:Tarificateur.Controllers.StatutsController.GetStatuts(System.Int32)">
             <summary>
-            Get Status List given by IdProf
+            Retourne la listes des statuts pour un IdProf
             </summary>
         </member>
     </members>

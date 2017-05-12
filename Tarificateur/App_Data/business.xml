@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Business</name>
+    </assembly>
+    <members>
+        <member name="P:Business.Entities.Garantie.Detail.Name">
+            <summary>
+            Type de garantie
+            </summary>
+        </member>
+        <member name="F:Business.Entities.Garantie.Detail.Taux">
+            <summary>
+            Cotisations en %<br/>Taux[0] -> jusqu'à 1 PASS<br/>Taux[1] -> de 1,1 à 4 PASS<br/>Taux[2] -> de 4,1 à 8 PASS
+            </summary>
+        </member>
+        <member name="F:Business.Entities.Garantie.PACK.PPA">
+            <summary>
+            Pack Pro Access
+            </summary>
+        </member>
+        <member name="F:Business.Entities.Garantie.PACK.PPI">
+            <summary>
+            Pack Pro Innovation
+            </summary>
+        </member>
+        <member name="F:Business.Entities.Garantie.PACK.PPE">
+            <summary>
+            Pack Pro Excellence
+            </summary>
+        </member>
+        <member name="F:Business.Entities.Garantie.PACK.UNKNOW">
+            <summary>
+            Impossible de définir le type de pack
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.Amount">
+            <summary>
+            Montant du traitment de base en €
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.BirthDay">
+            <summary>
+            Date de naissance reçue en paramètre
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.Age">
+            <summary>
+            la variable Age se calcule par différence entre l'année d'établissement du devis et l'année de naissance (age millésime)
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.IdProf">
+            <summary>
+            Id de la profession reçu en paramètre
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.Profession">
+            <summary>
+            Libellé de la profession
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.Bareme">
+            <summary>
+            Barème d'incapacité permanente applicable à la profession 
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.IdStatut">
+            <summary>
+            Id du statut reçu en paramètre
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.Statut">
+            <summary>
+            Libellé du statut
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.College">
+            <summary>
+            Collège d'appartenance
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.NbPass">
+            <summary>
+            Montant annuel à assurer reçu en paramètre
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.AnnualAmount">
+            <summary>
+            Montant de la cotisation en € / mois
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Garantie.PackName">
+            <summary>
+            Nom du pack de la gamme
+            </summary>
+        </member>
+        <member name="M:Business.Entities.Garantie.#ctor">
+            <summary>
+            Sample
+            </summary>
+        </member>
+        <member name="P:Business.Entities.Statut.MaxPass">
+            <summary>
+            Nombre de pass maximum admis
+            </summary>
+        </member>
+    </members>
+</doc>

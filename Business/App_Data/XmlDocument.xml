@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Business</name>
+    </assembly>
+    <members>
+        <member name="P:Business.Entities.Garantie.AnnualAmount">
+            <summary>
+            € / month
+            </summary>
+            <param name="AnnualAmount">€ / month</param>
+        </member>
+    </members>
+</doc>

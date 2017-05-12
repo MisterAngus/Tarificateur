@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tarificateur", "Tarificateu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{4ACA12EB-8EA7-4A4F-BD9D-78AC3366002B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{30282A6E-FE91-4977-AFC8-7CC67146CEED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4ACA12EB-8EA7-4A4F-BD9D-78AC3366002B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ACA12EB-8EA7-4A4F-BD9D-78AC3366002B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ACA12EB-8EA7-4A4F-BD9D-78AC3366002B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30282A6E-FE91-4977-AFC8-7CC67146CEED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30282A6E-FE91-4977-AFC8-7CC67146CEED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30282A6E-FE91-4977-AFC8-7CC67146CEED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30282A6E-FE91-4977-AFC8-7CC67146CEED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

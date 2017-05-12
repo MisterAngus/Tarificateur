@@ -20,6 +20,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -64,6 +66,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>APPModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Collèges.cs">
+      <DependentUpon>APPModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fournisseurs_Garanties_Prév.cs">
+      <DependentUpon>APPModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Professions.cs">
       <DependentUpon>APPModel.tt</DependentUpon>
     </Compile>
@@ -72,6 +80,18 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statuts_Tns.cs">
+      <DependentUpon>APPModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tarifs_Coef_Ages.cs">
+      <DependentUpon>APPModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tarifs_Coef_Bases.cs">
+      <DependentUpon>APPModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Version_Garanties_Prev.cs">
+      <DependentUpon>APPModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Version_Gar_Tarif.cs">
       <DependentUpon>APPModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

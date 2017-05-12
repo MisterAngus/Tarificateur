@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Runtime.Serialization;
+using System.Web.Http.Description;
 
-namespace Tarificateur.Models
+namespace Business.Entities
 {
     public class Statut
     {
         public int IdStatut { get; set; }
         public string Name { get; set; }
+        /// <summary>
+        /// Nombre de pass maximum admis
+        /// </summary>
         public double? MaxPass
         {
             get

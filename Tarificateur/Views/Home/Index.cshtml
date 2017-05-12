@@ -1,4 +1,195 @@
-﻿<div class="jumbotron">
-    <h1>Tarificateur API</h1>
-    <p>@Html.ActionLink("Doc", "Index", "Help", new { area = "" }, null)</p>
+﻿<div class="jumbotron" style="background-color:#004f75;color:#fff;">
+    <h3>API Tarificateur</h3>
 </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Exemple</h4>
+    </div>
+    <div class="panel-body">
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.Label("tbBirthDay", "Date de naissance", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="input-group col-md-4">
+                    @Html.TextBox("tbBirthDay", null, htmlAttributes: new { @class = "form-control" })
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <label id="lbAge"></label>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("tbProfession", "Profession", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-4">
+                    <select id="tbProfession" class="form-control calculate"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("tbStatut", "Statut", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-4">
+                    <select id="tbStatut" class="form-control calculate"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("tbPass", "Montant annuel à assurer", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-4">
+                    <select id="tbPass" class="form-control calculate"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("tbTauxCourtier", "Taux courtier", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="input-group col-md-4">
+                    <div class="input-group-addon">%</div>
+                    @Html.TextBox("tbTauxCourtier", null, htmlAttributes: new { @class = "form-control calculate" })
+                    <div class="input-group-addon">.0</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("tbMontant", "Montant", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="input-group col-md-4">
+                    <div class="input-group-addon">€</div>
+                    @Html.TextBox("tbMontant", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                    <div class="input-group-addon">/mois</div>
+                </div>
+                <label id="lbPack" class="control-label"></label>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-4">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBox("cbSalarie", false, htmlAttributes: new { @class = "calculate" })
+                            Le candidat à l'assurance emploie-t-il au moins un salarié
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p>@Html.ActionLink("Documentation", "Index", "Help", new { area = "" }, null)</p>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        function PopulateProfession() {
+            $.ajax({
+                url: '@Url.Action("professions", "api")',
+                data: "{}",
+                dataType: "json",
+                type: "GET",
+                contentType: "application/json",
+                success: function (data) {
+                    $("#tbProfession option").remove();
+                    $("#tbProfession").append($("<option></option>"));
+
+                    $.each(data, function (index, item) {
+                        $("#tbProfession").append(
+                            $("<option></option>")
+                                .text(item.IdProf + '-' + item.Name)
+                                .val(item.IdProf)
+                        );
+                    });
+                },
+                error: function (data, status, jqXHR) {
+                    alert("Error: " + data.responseJSON.ExceptionMessage);
+                }
+            });
+        }
+
+        function PopulateStatut() {
+            $.ajax({
+                url: '@Url.Action("statuts", "api")',
+                data: "IdProf=" + $("#tbProfession").val(),
+                dataType: "json",
+                type: "GET",
+                contentType: "application/json",
+                success: function (data) {
+                    $("#tbStatut option").remove();
+                    $("#tbStatut").append($("<option></option>"));
+
+                    $.each(data, function (index, item) {
+                        $("#tbStatut").append(
+                            $("<option></option>")
+                                .text(item.Name)
+                                .val(item.IdStatut)
+                                .attr("maxpass",item.MaxPass)
+                        );
+                    });
+                },
+                error: function (data, status, jqXHR) {
+                    alert("Error: " + data.responseJSON.ExceptionMessage);
+                }
+            });
+        }
+
+        function PopulatePass(){
+            $("#tbPass option").remove();
+            $("#tbPass").append($("<option></option>"));
+            var maxpass = $("#tbStatut option:selected").attr("maxpass");
+            for (i = 0; i <= maxpass; i = i + 0.1)
+            {
+                var val = Math.round(i * 100) / 100;
+                $("#tbPass").append($("<option></option>").text(val).val(val));
+            }
+        }
+
+        function GetMontant() {
+            var isoDate = $("#tbBirthDay").datepicker('getUTCDate');
+
+            if ($("#tbProfession").val() && $("#tbStatut").val() && isoDate) {
+
+
+                var data = JSON.stringify({
+                    BirthDay: isoDate,
+                    IdProf: $("#tbProfession").val() * 1,
+                    IdStatut: $("#tbStatut").val() * 1,
+                    NbPass: $("#tbPass").val() * 1,
+                    TxCourtier: $("#tbTauxCourtier").val() * 1,
+                    Salarie: $("#cbSalarie").is(':checked')
+
+                });
+
+                $.ajax({
+                    url: '@Url.Action("Garanties", "api")',
+                    data: data,
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json",
+                    success: function (data) {
+                        $("#tbMontant").val(data.Amount);
+                        $("#lbPack").text(data.PackName);
+                        $("#lbAge").text(data.Age + " ans");
+                    },
+                    error: function (data, status, jqXHR) {
+                        alert("Error: " + data.responseJSON.ExceptionMessage);
+                    }
+                });
+            }
+            else {
+                $("#tbMontant").val("");
+                $("#lbPack").text("");
+                $("#lbAge").text("");
+            }
+        }
+
+        $(document).ready(function () {
+            $('#tbBirthDay').datepicker({
+                format: 'dd/mm/yyyy',
+                language:'fr'
+            });
+            $("#tbBirthDay").focusout(GetMontant);
+            $("#tbProfession").change(PopulateStatut);
+            $("#tbStatut").change(PopulatePass);
+            $('.calculate').change(GetMontant);
+            PopulateProfession();
+        });
+    </script>
+}

@@ -23,5 +23,6 @@ namespace DAL
     
         public virtual Professions Professions { get; set; }
         public virtual Statuts_Tns Statuts_Tns { get; set; }
+        public virtual Collèges Collèges { get; set; }
     }
 }

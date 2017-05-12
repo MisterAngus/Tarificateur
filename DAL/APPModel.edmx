@@ -5,6 +5,46 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="APP_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Collèges">
+          <Key>
+            <PropertyRef Name="Code Collège" />
+          </Key>
+          <Property Name="Code Collège" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Collège" Type="nvarchar" MaxLength="150" />
+          <Property Name="Libéllé Complément" Type="nvarchar" MaxLength="30" />
+          <Property Name="Formulaire" Type="bit" Nullable="false" />
+          <Property Name="Famille collège" Type="nvarchar" MaxLength="50" />
+          <Property Name="DADS" Type="bit" />
+          <Property Name="ID_Famille_College" Type="int" />
+          <Property Name="ID_Statut_College" Type="int" />
+          <Property Name="Sagil_Cod_College" Type="int" />
+          <Property Name="Actif" Type="bit" Nullable="false" />
+          <Property Name="Sagil_Migre" Type="bit" Nullable="false" />
+          <Property Name="Sagil_Migre_Motif" Type="int" />
+        </EntityType>
+        <EntityType Name="Fournisseurs Garanties Prév">
+          <Key>
+            <PropertyRef Name="No_Garantie" />
+          </Key>
+          <Property Name="No_Garantie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code Garantie" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="N° Produit" Type="int" />
+          <Property Name="Code Fournisseur" Type="nvarchar" MaxLength="6" />
+          <Property Name="Type Garantie" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="niveau garantie" Type="ntext" />
+          <Property Name="Code Collège" Type="smallint" />
+          <Property Name="N° Type Prev" Type="smallint" />
+          <Property Name="Dt_Effet" Type="datetime" />
+          <Property Name="Dt_Fin" Type="datetime" />
+          <Property Name="Typ_Fin" Type="int" />
+          <Property Name="Rang" Type="int" />
+          <Property Name="No_produits_typ_prev" Type="int" />
+          <Property Name="Select_critere" Type="varchar" MaxLength="60" />
+          <Property Name="CodeRisque" Type="nvarchar" MaxLength="20" />
+          <Property Name="NiveauRisque" Type="nvarchar" MaxLength="20" />
+          <Property Name="CodeEvolan" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Professions">
           <Key>
             <PropertyRef Name="IdProf" />
@@ -34,6 +74,73 @@
           <Property Name="IdStatutTns" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StatutTns" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Tarifs_Coef_Ages">
+          <Key>
+            <PropertyRef Name="IdCoef" />
+          </Key>
+          <Property Name="IdCoef" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Produit" Type="int" Nullable="false" />
+          <Property Name="Niveau" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Type_prev" Type="int" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Coef_Tarif" Type="real" Nullable="false" />
+          <Property Name="Coef_Debut" Type="datetime" Nullable="false" />
+          <Property Name="Coef_Fin" Type="datetime" />
+          <Property Name="IdTarifLigne" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tarifs_Coef_Bases">
+          <Key>
+            <PropertyRef Name="IdCoef" />
+          </Key>
+          <Property Name="IdCoef" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Produit" Type="int" Nullable="false" />
+          <Property Name="Niveau" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Type_prev" Type="int" Nullable="false" />
+          <Property Name="Base" Type="int" Nullable="false" />
+          <Property Name="Coef_Tarif" Type="real" Nullable="false" />
+          <Property Name="Coef_Debut" Type="datetime" Nullable="false" />
+          <Property Name="Coef_Fin" Type="datetime" />
+          <Property Name="IdTarifLigne" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Version_Gar_Tarif">
+          <Key>
+            <PropertyRef Name="No_Version_Gar_Tarif" />
+          </Key>
+          <Property Name="No_Version_Gar_Tarif" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="No_Version_Gar" Type="int" Nullable="false" />
+          <Property Name="Dt_Effet_Tarif" Type="datetime" />
+          <Property Name="Dt_Fin_Tarif" Type="datetime" />
+          <Property Name="Type_Cotis" Type="nvarchar" MaxLength="3" />
+          <Property Name="No_Base" Type="int" />
+          <Property Name="Borne_Inf" Type="nvarchar" MaxLength="10" />
+          <Property Name="Borne_Sup" Type="nvarchar" MaxLength="10" />
+          <Property Name="Tx" Type="float" />
+        </EntityType>
+        <EntityType Name="Version_Garanties_Prev">
+          <Key>
+            <PropertyRef Name="No_Version_Gar" />
+          </Key>
+          <Property Name="No_Version_Gar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="No_garantie" Type="int" />
+          <Property Name="No_Version" Type="int" />
+          <Property Name="Dt_Effet" Type="datetime" />
+          <Property Name="Dt_Fin" Type="datetime" />
+          <Property Name="Typ_Fin" Type="int" />
+          <Property Name="Libelle_commercial" Type="varchar" MaxLength="100" />
+          <Property Name="Type Garantie" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Professions_Lgn_Tarifs_Collèges">
+          <End Role="Collèges" Type="Self.Collèges" Multiplicity="1" />
+          <End Role="Professions_Lgn_Tarifs" Type="Self.Professions_Lgn_Tarifs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collèges">
+              <PropertyRef Name="Code Collège" />
+            </Principal>
+            <Dependent Role="Professions_Lgn_Tarifs">
+              <PropertyRef Name="Code Collège" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Professions_Lgn_Tarifs_Professions">
           <End Role="Professions" Type="Self.Professions" Multiplicity="1" />
           <End Role="Professions_Lgn_Tarifs" Type="Self.Professions_Lgn_Tarifs" Multiplicity="*" />
@@ -59,9 +166,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="APP_DBModelStoreContainer">
+          <EntitySet Name="Collèges" EntityType="Self.Collèges" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fournisseurs Garanties Prév" EntityType="Self.Fournisseurs Garanties Prév" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Professions" EntityType="Self.Professions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Professions_Lgn_Tarifs" EntityType="Self.Professions_Lgn_Tarifs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Statuts_Tns" EntityType="Self.Statuts_Tns" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarifs_Coef_Ages" EntityType="Self.Tarifs_Coef_Ages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarifs_Coef_Bases" EntityType="Self.Tarifs_Coef_Bases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Version_Gar_Tarif" EntityType="Self.Version_Gar_Tarif" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Version_Garanties_Prev" EntityType="Self.Version_Garanties_Prev" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Professions_Lgn_Tarifs_Collèges" Association="Self.FK_Professions_Lgn_Tarifs_Collèges">
+            <End Role="Collèges" EntitySet="Collèges" />
+            <End Role="Professions_Lgn_Tarifs" EntitySet="Professions_Lgn_Tarifs" />
+          </AssociationSet>
           <AssociationSet Name="FK_Professions_Lgn_Tarifs_Professions" Association="Self.FK_Professions_Lgn_Tarifs_Professions">
             <End Role="Professions" EntitySet="Professions" />
             <End Role="Professions_Lgn_Tarifs" EntitySet="Professions_Lgn_Tarifs" />
@@ -99,6 +216,16 @@
             <End Role="Statuts_Tns" EntitySet="Statuts_Tns" />
             <End Role="Professions_Lgn_Tarifs" EntitySet="Professions_Lgn_Tarifs" />
           </AssociationSet>
+          <EntitySet Name="Collèges" EntityType="APP_DBModel.Collèges" />
+          <AssociationSet Name="FK_Professions_Lgn_Tarifs_Collèges" Association="APP_DBModel.FK_Professions_Lgn_Tarifs_Collèges">
+            <End Role="Collèges" EntitySet="Collèges" />
+            <End Role="Professions_Lgn_Tarifs" EntitySet="Professions_Lgn_Tarifs" />
+          </AssociationSet>
+          <EntitySet Name="Fournisseurs_Garanties_Prév" EntityType="APP_DBModel.Fournisseurs_Garanties_Prév" />
+          <EntitySet Name="Version_Gar_Tarif" EntityType="APP_DBModel.Version_Gar_Tarif" />
+          <EntitySet Name="Version_Garanties_Prev" EntityType="APP_DBModel.Version_Garanties_Prev" />
+          <EntitySet Name="Tarifs_Coef_Ages" EntityType="APP_DBModel.Tarifs_Coef_Ages" />
+          <EntitySet Name="Tarifs_Coef_Bases" EntityType="APP_DBModel.Tarifs_Coef_Bases" />
         </EntityContainer>
         <EntityType Name="Professions_Lgn_Tarifs">
           <Key>
@@ -112,6 +239,7 @@
           <Property Name="ID_Regime_RO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Professions" Relationship="APP_DBModel.FK_Professions_Lgn_Tarifs_Professions" FromRole="Professions_Lgn_Tarifs" ToRole="Professions" />
           <NavigationProperty Name="Statuts_Tns" Relationship="APP_DBModel.FK_Professions_Lgn_Tarifs_Statuts_Tns" FromRole="Professions_Lgn_Tarifs" ToRole="Statuts_Tns" />
+          <NavigationProperty Name="Collèges" Relationship="APP_DBModel.FK_Professions_Lgn_Tarifs_Collèges" FromRole="Professions_Lgn_Tarifs" ToRole="Collèges" />
         </EntityType>
         <Association Name="FK_Professions_Lgn_Tarifs_Professions">
           <End Type="APP_DBModel.Professions" Role="Professions" Multiplicity="1" />
@@ -145,6 +273,114 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Collèges">
+          <Key>
+            <PropertyRef Name="Code_Collège" />
+          </Key>
+          <Property Name="Code_Collège" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Collège" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Libéllé_Complément" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Formulaire" Type="Boolean" Nullable="false" />
+          <Property Name="Famille_collège" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DADS" Type="Boolean" />
+          <Property Name="ID_Famille_College" Type="Int32" />
+          <Property Name="ID_Statut_College" Type="Int32" />
+          <Property Name="Sagil_Cod_College" Type="Int32" />
+          <Property Name="Actif" Type="Boolean" Nullable="false" />
+          <Property Name="Sagil_Migre" Type="Boolean" Nullable="false" />
+          <Property Name="Sagil_Migre_Motif" Type="Int32" />
+          <NavigationProperty Name="Professions_Lgn_Tarifs" Relationship="APP_DBModel.FK_Professions_Lgn_Tarifs_Collèges" FromRole="Collèges" ToRole="Professions_Lgn_Tarifs" />
+        </EntityType>
+        <Association Name="FK_Professions_Lgn_Tarifs_Collèges">
+          <End Type="APP_DBModel.Collèges" Role="Collèges" Multiplicity="1" />
+          <End Type="APP_DBModel.Professions_Lgn_Tarifs" Role="Professions_Lgn_Tarifs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collèges">
+              <PropertyRef Name="Code_Collège" />
+            </Principal>
+            <Dependent Role="Professions_Lgn_Tarifs">
+              <PropertyRef Name="Code_Collège" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Fournisseurs_Garanties_Prév">
+          <Key>
+            <PropertyRef Name="No_Garantie" />
+          </Key>
+          <Property Name="No_Garantie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code_Garantie" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="N__Produit" Type="Int32" />
+          <Property Name="Code_Fournisseur" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Garantie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="niveau_garantie" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Collège" Type="Int16" />
+          <Property Name="N__Type_Prev" Type="Int16" />
+          <Property Name="Dt_Effet" Type="DateTime" Precision="3" />
+          <Property Name="Dt_Fin" Type="DateTime" Precision="3" />
+          <Property Name="Typ_Fin" Type="Int32" />
+          <Property Name="Rang" Type="Int32" />
+          <Property Name="No_produits_typ_prev" Type="Int32" />
+          <Property Name="Select_critere" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="CodeRisque" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NiveauRisque" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CodeEvolan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Version_Gar_Tarif">
+          <Key>
+            <PropertyRef Name="No_Version_Gar_Tarif" />
+          </Key>
+          <Property Name="No_Version_Gar_Tarif" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="No_Version_Gar" Type="Int32" Nullable="false" />
+          <Property Name="Dt_Effet_Tarif" Type="DateTime" Precision="3" />
+          <Property Name="Dt_Fin_Tarif" Type="DateTime" Precision="3" />
+          <Property Name="Type_Cotis" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="No_Base" Type="Int32" />
+          <Property Name="Borne_Inf" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Borne_Sup" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Tx" Type="Double" />
+        </EntityType>
+        <EntityType Name="Version_Garanties_Prev">
+          <Key>
+            <PropertyRef Name="No_Version_Gar" />
+          </Key>
+          <Property Name="No_Version_Gar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="No_garantie" Type="Int32" />
+          <Property Name="No_Version" Type="Int32" />
+          <Property Name="Dt_Effet" Type="DateTime" Precision="3" />
+          <Property Name="Dt_Fin" Type="DateTime" Precision="3" />
+          <Property Name="Typ_Fin" Type="Int32" />
+          <Property Name="Libelle_commercial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Type_Garantie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tarifs_Coef_Ages">
+          <Key>
+            <PropertyRef Name="IdCoef" />
+          </Key>
+          <Property Name="IdCoef" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Produit" Type="Int32" Nullable="false" />
+          <Property Name="Niveau" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Type_prev" Type="Int32" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Coef_Tarif" Type="Single" Nullable="false" />
+          <Property Name="Coef_Debut" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Coef_Fin" Type="DateTime" Precision="3" />
+          <Property Name="IdTarifLigne" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tarifs_Coef_Bases">
+          <Key>
+            <PropertyRef Name="IdCoef" />
+          </Key>
+          <Property Name="IdCoef" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Produit" Type="Int32" Nullable="false" />
+          <Property Name="Niveau" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Type_prev" Type="Int32" Nullable="false" />
+          <Property Name="Base" Type="Int32" Nullable="false" />
+          <Property Name="Coef_Tarif" Type="Single" Nullable="false" />
+          <Property Name="Coef_Debut" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Coef_Fin" Type="DateTime" Precision="3" />
+          <Property Name="IdTarifLigne" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -180,6 +416,107 @@
               <MappingFragment StoreEntitySet="Statuts_Tns">
                 <ScalarProperty Name="StatutTns" ColumnName="StatutTns" />
                 <ScalarProperty Name="IdStatutTns" ColumnName="IdStatutTns" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Collèges">
+            <EntityTypeMapping TypeName="APP_DBModel.Collèges">
+              <MappingFragment StoreEntitySet="Collèges">
+                <ScalarProperty Name="Sagil_Migre_Motif" ColumnName="Sagil_Migre_Motif" />
+                <ScalarProperty Name="Sagil_Migre" ColumnName="Sagil_Migre" />
+                <ScalarProperty Name="Actif" ColumnName="Actif" />
+                <ScalarProperty Name="Sagil_Cod_College" ColumnName="Sagil_Cod_College" />
+                <ScalarProperty Name="ID_Statut_College" ColumnName="ID_Statut_College" />
+                <ScalarProperty Name="ID_Famille_College" ColumnName="ID_Famille_College" />
+                <ScalarProperty Name="DADS" ColumnName="DADS" />
+                <ScalarProperty Name="Famille_collège" ColumnName="Famille collège" />
+                <ScalarProperty Name="Formulaire" ColumnName="Formulaire" />
+                <ScalarProperty Name="Libéllé_Complément" ColumnName="Libéllé Complément" />
+                <ScalarProperty Name="Collège" ColumnName="Collège" />
+                <ScalarProperty Name="Code_Collège" ColumnName="Code Collège" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fournisseurs_Garanties_Prév">
+            <EntityTypeMapping TypeName="APP_DBModel.Fournisseurs_Garanties_Prév">
+              <MappingFragment StoreEntitySet="Fournisseurs Garanties Prév">
+                <ScalarProperty Name="CodeEvolan" ColumnName="CodeEvolan" />
+                <ScalarProperty Name="NiveauRisque" ColumnName="NiveauRisque" />
+                <ScalarProperty Name="CodeRisque" ColumnName="CodeRisque" />
+                <ScalarProperty Name="Select_critere" ColumnName="Select_critere" />
+                <ScalarProperty Name="No_produits_typ_prev" ColumnName="No_produits_typ_prev" />
+                <ScalarProperty Name="Rang" ColumnName="Rang" />
+                <ScalarProperty Name="Typ_Fin" ColumnName="Typ_Fin" />
+                <ScalarProperty Name="Dt_Fin" ColumnName="Dt_Fin" />
+                <ScalarProperty Name="Dt_Effet" ColumnName="Dt_Effet" />
+                <ScalarProperty Name="N__Type_Prev" ColumnName="N° Type Prev" />
+                <ScalarProperty Name="Code_Collège" ColumnName="Code Collège" />
+                <ScalarProperty Name="niveau_garantie" ColumnName="niveau garantie" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type_Garantie" ColumnName="Type Garantie" />
+                <ScalarProperty Name="Code_Fournisseur" ColumnName="Code Fournisseur" />
+                <ScalarProperty Name="N__Produit" ColumnName="N° Produit" />
+                <ScalarProperty Name="Code_Garantie" ColumnName="Code Garantie" />
+                <ScalarProperty Name="No_Garantie" ColumnName="No_Garantie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Version_Gar_Tarif">
+            <EntityTypeMapping TypeName="APP_DBModel.Version_Gar_Tarif">
+              <MappingFragment StoreEntitySet="Version_Gar_Tarif">
+                <ScalarProperty Name="Tx" ColumnName="Tx" />
+                <ScalarProperty Name="Borne_Sup" ColumnName="Borne_Sup" />
+                <ScalarProperty Name="Borne_Inf" ColumnName="Borne_Inf" />
+                <ScalarProperty Name="No_Base" ColumnName="No_Base" />
+                <ScalarProperty Name="Type_Cotis" ColumnName="Type_Cotis" />
+                <ScalarProperty Name="Dt_Fin_Tarif" ColumnName="Dt_Fin_Tarif" />
+                <ScalarProperty Name="Dt_Effet_Tarif" ColumnName="Dt_Effet_Tarif" />
+                <ScalarProperty Name="No_Version_Gar" ColumnName="No_Version_Gar" />
+                <ScalarProperty Name="No_Version_Gar_Tarif" ColumnName="No_Version_Gar_Tarif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Version_Garanties_Prev">
+            <EntityTypeMapping TypeName="APP_DBModel.Version_Garanties_Prev">
+              <MappingFragment StoreEntitySet="Version_Garanties_Prev">
+                <ScalarProperty Name="Type_Garantie" ColumnName="Type Garantie" />
+                <ScalarProperty Name="Libelle_commercial" ColumnName="Libelle_commercial" />
+                <ScalarProperty Name="Typ_Fin" ColumnName="Typ_Fin" />
+                <ScalarProperty Name="Dt_Fin" ColumnName="Dt_Fin" />
+                <ScalarProperty Name="Dt_Effet" ColumnName="Dt_Effet" />
+                <ScalarProperty Name="No_Version" ColumnName="No_Version" />
+                <ScalarProperty Name="No_garantie" ColumnName="No_garantie" />
+                <ScalarProperty Name="No_Version_Gar" ColumnName="No_Version_Gar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarifs_Coef_Ages">
+            <EntityTypeMapping TypeName="APP_DBModel.Tarifs_Coef_Ages">
+              <MappingFragment StoreEntitySet="Tarifs_Coef_Ages">
+                <ScalarProperty Name="IdTarifLigne" ColumnName="IdTarifLigne" />
+                <ScalarProperty Name="Coef_Fin" ColumnName="Coef_Fin" />
+                <ScalarProperty Name="Coef_Debut" ColumnName="Coef_Debut" />
+                <ScalarProperty Name="Coef_Tarif" ColumnName="Coef_Tarif" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Type_prev" ColumnName="Type_prev" />
+                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
+                <ScalarProperty Name="Produit" ColumnName="Produit" />
+                <ScalarProperty Name="IdCoef" ColumnName="IdCoef" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarifs_Coef_Bases">
+            <EntityTypeMapping TypeName="APP_DBModel.Tarifs_Coef_Bases">
+              <MappingFragment StoreEntitySet="Tarifs_Coef_Bases">
+                <ScalarProperty Name="IdTarifLigne" ColumnName="IdTarifLigne" />
+                <ScalarProperty Name="Coef_Fin" ColumnName="Coef_Fin" />
+                <ScalarProperty Name="Coef_Debut" ColumnName="Coef_Debut" />
+                <ScalarProperty Name="Coef_Tarif" ColumnName="Coef_Tarif" />
+                <ScalarProperty Name="Base" ColumnName="Base" />
+                <ScalarProperty Name="Type_prev" ColumnName="Type_prev" />
+                <ScalarProperty Name="Niveau" ColumnName="Niveau" />
+                <ScalarProperty Name="Produit" ColumnName="Produit" />
+                <ScalarProperty Name="IdCoef" ColumnName="IdCoef" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

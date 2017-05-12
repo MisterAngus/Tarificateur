@@ -9,29 +9,26 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using DAL;
 
 namespace Tarificateur.Controllers
 {
     public class StatutsController : ApiController
     {
-        private APP_DBEntities db = new APP_DBEntities();
-
 
         /// <summary>
-        /// Get Status List
+        /// Retourne la listes des statuts
         /// </summary>
-        public List<Models.Statut> GetStatuts()
+        public List<Business.Entities.Statut> GetStatuts()
         {
-            return db.Statuts_Tns.Select(e => new Models.Statut() { IdStatut = e.IdStatutTns, Name = e.StatutTns }).ToList();
+            return Business.Lists.Statuts.Get();
         }
 
         /// <summary>
-        /// Get Status List given by IdProf
+        /// Retourne la listes des statuts pour un IdProf
         /// </summary>
-        public List<Models.Statut> GetStatuts(int IdProf)
+        public List<Business.Entities.Statut> GetStatuts(int IdProf)
         {
-            return db.Professions_Lgn_Tarifs.Where(e => e.IdProf == IdProf).Select(e => new Models.Statut() { IdStatut = e.IdStatutTns, Name = e.Statuts_Tns.StatutTns }).ToList();
+            return Business.Lists.Statuts.Get(IdProf);
         }
     }
 }

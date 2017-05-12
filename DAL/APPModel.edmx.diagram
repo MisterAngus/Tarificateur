@@ -6,10 +6,17 @@
     <edmx:Diagrams>
       <Diagram DiagramId="80e2daaf9f624333906f17012ed2d0d8" Name="Diagram1">
         <EntityTypeShape EntityType="APP_DBModel.Professions" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="APP_DBModel.Professions_Lgn_Tarifs" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="APP_DBModel.Professions_Lgn_Tarifs" Width="2.625" PointX="3" PointY="5" />
         <AssociationConnector Association="APP_DBModel.FK_Professions_Lgn_Tarifs_Professions" />
         <EntityTypeShape EntityType="APP_DBModel.Statuts_Tns" Width="1.5" PointX="0.75" PointY="5.5" />
         <AssociationConnector Association="APP_DBModel.FK_Professions_Lgn_Tarifs_Statuts_Tns" />
+        <EntityTypeShape EntityType="APP_DBModel.Collèges" Width="2.875" PointX="5.375" PointY="1" />
+        <AssociationConnector Association="APP_DBModel.FK_Professions_Lgn_Tarifs_Collèges" />
+        <EntityTypeShape EntityType="APP_DBModel.Fournisseurs_Garanties_Prév" Width="2.25" PointX="6.75" PointY="5.75" />
+        <EntityTypeShape EntityType="APP_DBModel.Version_Gar_Tarif" Width="2.625" PointX="11.75" PointY="7.25" />
+        <EntityTypeShape EntityType="APP_DBModel.Version_Garanties_Prev" Width="2.75" PointX="10.875" PointY="3.375" />
+        <EntityTypeShape EntityType="APP_DBModel.Tarifs_Coef_Ages" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="APP_DBModel.Tarifs_Coef_Bases" Width="1.5" PointX="2.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
