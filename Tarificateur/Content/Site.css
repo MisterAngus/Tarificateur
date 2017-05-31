@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 10px;
+    padding-top: 60px;
     padding-bottom: 20px;
 }
 
@@ -24,3 +24,8 @@ textarea {
         background-color: #004f75;
         border-color: #004f75;
     }
+
+.input-group[class*="col-"] {
+    padding-left: 15px;
+    padding-right: 15px;
+}

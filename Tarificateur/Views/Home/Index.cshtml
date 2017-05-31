@@ -1,6 +1,6 @@
-﻿<div class="jumbotron" style="background-color:#004f75;color:#fff;">
+﻿@*<div class="jumbotron" style="background-color:#004f75;color:#fff;">
     <h3>API Tarificateur</h3>
-</div>
+</div>*@
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h4>Exemple</h4>
@@ -189,7 +189,13 @@
             $("#tbProfession").change(PopulateStatut);
             $("#tbStatut").change(PopulatePass);
             $('.calculate').change(GetMontant);
-            PopulateProfession();
+
+            if (!window.localStorage.getItem("token")) {
+
+            }
+            else {
+                PopulateProfession();
+            }
         });
     </script>
 }

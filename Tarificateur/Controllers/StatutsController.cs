@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 
 namespace Tarificateur.Controllers
 {
+    [Authorize]
     public class StatutsController : ApiController
     {
 

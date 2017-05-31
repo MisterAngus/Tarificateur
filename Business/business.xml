@@ -4,6 +4,28 @@
         <name>Business</name>
     </assembly>
     <members>
+        <member name="M:Business.Common.Tools.CreateToken(Business.Entities.User,System.Object@)">
+            <summary>
+            Create a Jwt with user information
+            </summary>
+            <param name="user"></param>
+            <param name="dbUser"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Business.Common.Tools.CreateSalt">
+            <summary>
+                Creates a random salt to be used for encrypting a password
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Business.Common.Tools.EncryptPassword(System.String,System.String)">
+            <summary>
+                Encrypts a password using the given salt
+            </summary>
+            <param name="password"></param>
+            <param name="salt"></param>
+            <returns></returns>
+        </member>
         <member name="P:Business.Entities.Garantie.Detail.Name">
             <summary>
             Type de garantie

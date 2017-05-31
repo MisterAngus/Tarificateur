@@ -13,6 +13,7 @@ using Business.Lists;
 
 namespace Tarificateur.Controllers
 {
+    [Authorize]
     public class ProfessionsController : ApiController
     {
 
