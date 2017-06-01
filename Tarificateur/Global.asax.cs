@@ -19,7 +19,7 @@ namespace Tarificateur
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             //GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
-            Business.Common.Tools.CreateUser("tarificateur@api.cipres.fr", "toto");
+            Business.Common.Tools.CreateUser("tarificateur@api.cipres.fr", "NPRufVNGym7v");
         }
     }
 }

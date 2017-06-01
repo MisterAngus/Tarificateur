@@ -19,6 +19,7 @@ namespace Tarificateur.Controllers
 
         /// <summary>
         /// Retourne la liste professions
+        /// Nécessite Token Header
         /// </summary>
         public List<Business.Entities.Profession> GetProfessions()
         {

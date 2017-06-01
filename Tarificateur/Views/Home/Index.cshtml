@@ -1,22 +1,58 @@
 ﻿@*<div class="jumbotron" style="background-color:#004f75;color:#fff;">
-    <h3>API Tarificateur</h3>
-</div>*@
-<div class="panel panel-primary">
+        <h3>API Tarificateur</h3>
+    </div>*@
+<div id="pLogin" class="panel panel-primary">
     <div class="panel-heading">
-        <h4>Exemple</h4>
+        <h4>Login</h4>
     </div>
     <div class="panel-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.Label("tbEmail", "Email", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="input-group col-md-4">
+                    @Html.TextBox("tbEmail", null, htmlAttributes: new { type = "email", @class = "form-control" })
+                    <div class="input-group-addon">
+                        @@
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("tbPassword", "Mot de passe", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-4">
+                    @Html.TextBox("tbPassword", null, htmlAttributes: new { type = "password", @class = "form-control" })
+                    <span class="text-danger" id="loginFail"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-3 col-md-4">
+                    <button type="button" class="btn btn-default" id="btLogin">Se connecter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+
+<div id="pForm" class="panel panel-primary">
+    <div class="panel-heading">
+        <h4 style="display:inline-block;">Exemple</h4>
+        <a href="# "class="pull-right" id="btLogout" style="color:white;">Déconnexion</a>
+    </div>
+    <div class="panel-body">
         <div class="form-horizontal">
             <div class="form-group">
                 @Html.Label("tbBirthDay", "Date de naissance", htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="input-group col-md-4">
-                    @Html.TextBox("tbBirthDay", null, htmlAttributes: new { @class = "form-control" })
-                    <div class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                <div class="col-md-4">
+                    <div class="input-group ">
+                        @Html.TextBox("tbBirthDay", null, htmlAttributes: new { @class = "form-control" })
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                        </div>
                     </div>
                 </div>
-                <label id="lbAge"></label>
+                <div class="col-md-2">
+                    <label id="lbAge"></label>
+                </div>
             </div>
 
             <div class="form-group">
@@ -51,12 +87,16 @@
 
             <div class="form-group">
                 @Html.Label("tbMontant", "Montant", htmlAttributes: new { @class = "control-label col-md-3" })
-                <div class="input-group col-md-4">
-                    <div class="input-group-addon">€</div>
-                    @Html.TextBox("tbMontant", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
-                    <div class="input-group-addon">/mois</div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <div class="input-group-addon">€</div>
+                        @Html.TextBox("tbMontant", null, htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                        <div class="input-group-addon">/mois</div>
+                    </div>
                 </div>
-                <label id="lbPack" class="control-label"></label>
+                <div class="col-md-2">
+                    <label id="lbPack" class="control-label"></label>
+                </div>
             </div>
 
             <div class="form-group">
@@ -82,6 +122,9 @@
         function PopulateProfession() {
             $.ajax({
                 url: '@Url.Action("professions", "api")',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", window.localStorage.getItem("token"));
+                },
                 data: "{}",
                 dataType: "json",
                 type: "GET",
@@ -99,7 +142,11 @@
                     });
                 },
                 error: function (data, status, jqXHR) {
-                    alert("Error: " + data.responseJSON.ExceptionMessage);
+                    if (status == 'error') {
+                        alert(data.responseText);
+                    } else {
+                        alert("Error: " + data.responseJSON.ExceptionMessage);
+                    }
                 }
             });
         }
@@ -107,6 +154,9 @@
         function PopulateStatut() {
             $.ajax({
                 url: '@Url.Action("statuts", "api")',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", window.localStorage.getItem("token"));
+                },
                 data: "IdProf=" + $("#tbProfession").val(),
                 dataType: "json",
                 type: "GET",
@@ -125,7 +175,11 @@
                     });
                 },
                 error: function (data, status, jqXHR) {
-                    alert("Error: " + data.responseJSON.ExceptionMessage);
+                    if (status == 'error') {
+                        alert(data.responseText);
+                    } else {
+                        alert("Error: " + data.responseJSON.ExceptionMessage);
+                    }
                 }
             });
         }
@@ -159,6 +213,9 @@
 
                 $.ajax({
                     url: '@Url.Action("Garanties", "api")',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", window.localStorage.getItem("token"));
+                    },
                     data: data,
                     dataType: "json",
                     type: "POST",
@@ -169,7 +226,11 @@
                         $("#lbAge").text(data.Age + " ans");
                     },
                     error: function (data, status, jqXHR) {
-                        alert("Error: " + data.responseJSON.ExceptionMessage);
+                        if (status == 'error') {
+                            alert(data.responseText);
+                        } else {
+                            alert("Error: " + data.responseJSON.ExceptionMessage);
+                        }
                     }
                 });
             }
@@ -180,6 +241,42 @@
             }
         }
 
+        function Login() {
+            $.ajax({
+                url: '@Url.Action("account", "api")',
+                data: "email=" + $("#tbEmail").val() + "&password=" + $("#tbPassword").val(),
+                dataType: "json",
+                type: "GET",
+                contentType: "application/json",
+                success: function (data) {
+                    $("#loginFail").html("");
+                    window.localStorage.setItem("token", data.Token);
+                    CheckToken();
+                },
+                error: function (data, status, jqXHR) {
+                    $("#loginFail").html(jqXHR);
+                    CheckToken();
+                }
+            });
+        }
+
+        function Logout() {
+            window.localStorage.removeItem("token");
+            CheckToken();
+        }
+
+        function CheckToken() {
+            if (window.localStorage.getItem("token")) {
+                $('#pForm').show();
+                $('#pLogin').hide();
+                PopulateProfession();
+            } else {
+                $('#pForm').hide();
+                $('#pLogin').show();
+            }
+        }
+
+
         $(document).ready(function () {
             $('#tbBirthDay').datepicker({
                 format: 'dd/mm/yyyy',
@@ -189,13 +286,11 @@
             $("#tbProfession").change(PopulateStatut);
             $("#tbStatut").change(PopulatePass);
             $('.calculate').change(GetMontant);
+            $('#btLogin').click(Login);
+            $('#btLogout').click(Logout);
 
-            if (!window.localStorage.getItem("token")) {
+            CheckToken();
 
-            }
-            else {
-                PopulateProfession();
-            }
         });
     </script>
 }

@@ -18,6 +18,7 @@ namespace Tarificateur.Controllers
 
         /// <summary>
         /// Retourne la listes des statuts
+        /// Nécessite Token Header
         /// </summary>
         public List<Business.Entities.Statut> GetStatuts()
         {
@@ -26,7 +27,10 @@ namespace Tarificateur.Controllers
 
         /// <summary>
         /// Retourne la listes des statuts pour un IdProf
+        /// Nécessite Token Header
         /// </summary>
+        /// <param name="IdProf"></param>
+        /// <returns></returns>
         public List<Business.Entities.Statut> GetStatuts(int IdProf)
         {
             return Business.Lists.Statuts.Get(IdProf);

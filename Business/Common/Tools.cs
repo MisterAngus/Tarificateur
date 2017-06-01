@@ -5,29 +5,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JWT;
+using JWT.Algorithms;
+using JWT.Serializers;
 using System.Security.Cryptography;
 using System.Security.Claims;
-using System.Web.Script.Serialization;
 
 
 namespace Business.Common
 {
     public class Tools
     {
-        private const string apikey = "TheCipresSecretKey@TarificateurAPI";
+        private const string apikey = "<sdfuj@zefo#sdffslqp87qqzeAPk";
+
+        /// <summary>
+        /// Information utilisateur
+        /// </summary>
+        public class DbUser
+        {
+            /// <summary>
+            /// Email utilisateur
+            /// </summary>
+            public string Email { get; set; }
+            /// <summary>
+            /// Id Utilisateur
+            /// </summary>
+            public int Id { get; set; }
+        }
+
+        /// <summary>
+        /// Retour avec Token
+        /// </summary>
+        public class LoginResult
+        {
+            public DbUser dbUser { get; set; }
+            /// <summary>
+            /// Token à utiliser pour l'appel à toutes les autres api
+            /// Ajouter dans le Header : Authorization = {Token}
+            /// </summary>
+            public string Token { get; set; }
+        }
+            
 
         /// <summary>
         /// Create a Jwt with user information
         /// </summary>
         /// <param name="user"></param>
-        /// <param name="dbUser"></param>
         /// <returns></returns>
-        public static string CreateToken(Entities.User user, out object dbUser)
+        public static LoginResult CreateToken(Entities.User user)
         {
             var unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var expiry = Math.Round((DateTime.UtcNow.AddHours(2) - unixEpoch).TotalSeconds);
             var issuedAt = Math.Round((DateTime.UtcNow - unixEpoch).TotalSeconds);
-            var notBefore = Math.Round((DateTime.UtcNow.AddMonths(6) - unixEpoch).TotalSeconds);
+            var notBefore = Math.Round((unixEpoch - DateTime.UtcNow.AddMonths(6)).TotalSeconds);
 
 
             var payload = new Dictionary<string, object>
@@ -41,18 +70,28 @@ namespace Business.Common
                 {"exp", expiry}
             };
 
+            IJwtAlgorithm algorithm = new HMACSHA256Algorithm();
+            IJsonSerializer serializer = new JsonNetSerializer();
+            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+            IJwtEncoder encoder = new JwtEncoder(algorithm, serializer, urlEncoder);
 
-            var token = JsonWebToken.Encode(payload, apikey, JwtHashAlgorithm.HS256);
+            var token = encoder.Encode(payload, apikey);
+            LoginResult result = new LoginResult();
+            result.dbUser = new DbUser() { Email = user.Email, Id = user.Id };
+            result.Token = token;
 
-            dbUser = new { user.Email, user.Id };
-            return token;
+            return result;
         }
 
         public static ClaimsPrincipal ValidateToken(string token, bool checkExpiration)
         {
-            var jsonSerializer = new JavaScriptSerializer();
-            var payloadJson = JsonWebToken.Decode(token, apikey);
-            var payloadData = jsonSerializer.Deserialize<Dictionary<string, object>>(payloadJson);
+            IJsonSerializer serializer = new JsonNetSerializer();
+            IDateTimeProvider provider = new UtcDateTimeProvider();
+            IJwtValidator validator = new JwtValidator(serializer, provider);
+            IBase64UrlEncoder urlEncoder = new JwtBase64UrlEncoder();
+            IJwtDecoder decoder = new JwtDecoder(serializer, validator, urlEncoder);
+
+            var payloadData = decoder.DecodeToObject<IDictionary<string, object>>(token, apikey, true);
 
 
             object exp;

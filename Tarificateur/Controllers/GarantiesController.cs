@@ -56,6 +56,7 @@ namespace Tarificateur.Controllers
 
         /// <summary>
         /// Retourne la garantie
+        /// Nécessite Token Header
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns>Garantie</returns>
@@ -70,6 +71,7 @@ namespace Tarificateur.Controllers
 
         /// <summary>
         /// Retourne la garantie
+        /// Nécessite Token Header
         /// </summary>
         /// <param name="BirthDay">Date de naissance. L'âge du candidat à l'assurance doit être compris entre 18 et 60 ans pour souscrire.</param>
         /// <param name="IdProf">Profession. Id de la profession (ex : 1020)</param>

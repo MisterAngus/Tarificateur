@@ -92,7 +92,7 @@ namespace Business.Entities
         /// </summary>
         public DateTime BirthDay { get; set; }
         /// <summary>
-        /// la variable Age se calcule par différence entre l'année d'établissement du devis et l'année de naissance (age millésime)
+        /// La variable Age se calcule par différence entre l'année d'établissement du devis et l'année de naissance (age millésime)
         /// </summary>
         [DataMember]
         public int Age

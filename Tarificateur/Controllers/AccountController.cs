@@ -47,8 +47,7 @@ namespace Tarificateur.Controllers
 
                 if (loginSuccess)
                 {
-                    object dbUser;
-                    var token = Business.Common.Tools.CreateToken(existingUser, out dbUser);
+                    var token = Business.Common.Tools.CreateToken(existingUser);
 
                     var claims = new List<Claim>();
 
@@ -56,7 +55,7 @@ namespace Tarificateur.Controllers
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, existingUser.Id.ToString()));
                     claims.Add(new Claim(ClaimTypes.Name, existingUser.Email));
 
-                    claims.Add(new Claim("token", token));
+                    claims.Add(new Claim("token", token.Token));
 
                     var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
                     var properties = new AuthenticationProperties()
@@ -111,8 +110,15 @@ namespace Tarificateur.Controllers.Api
     [System.Web.Http.Authorize]
     public class AccountController : ApiController
     {
+        /// <summary>
+        /// Permet de se loguer à l'api
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpGet]
+        [System.Web.Http.Description.ResponseType(typeof(Business.Common.Tools.LoginResult))]
         public HttpResponseMessage Login(string email, string password)
         {
             HttpResponseMessage response = null;
@@ -132,9 +138,8 @@ namespace Tarificateur.Controllers.Api
 
                     if (loginSuccess)
                     {
-                        object dbUser;
-                        var token = Business.Common.Tools.CreateToken(existingUser, out dbUser);
-                        response = Request.CreateResponse(new { dbUser, token });
+                        var tokenResult = Business.Common.Tools.CreateToken(existingUser);
+                        response = Request.CreateResponse(tokenResult);
                     }
                 }
             }

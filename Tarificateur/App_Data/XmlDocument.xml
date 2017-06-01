@@ -481,6 +481,14 @@
             </summary>
             <param name="appDataPath">The physical path to XML document.</param>
         </member>
+        <member name="M:Tarificateur.Controllers.Api.AccountController.Login(System.String,System.String)">
+            <summary>
+            Permet de se loguer à l'api
+            </summary>
+            <param name="email"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
         <member name="T:Tarificateur.Controllers.GarantiesController.Parameter">
             <summary>
             Paramètre pour récupérer la garantie
@@ -519,6 +527,7 @@
         <member name="M:Tarificateur.Controllers.GarantiesController.GetGaranties(Tarificateur.Controllers.GarantiesController.Parameter)">
             <summary>
             Retourne la garantie
+            Nécessite Token Header
             </summary>
             <param name="parameter"></param>
             <returns>Garantie</returns>
@@ -526,6 +535,7 @@
         <member name="M:Tarificateur.Controllers.GarantiesController.GetGaranties(System.DateTime,System.Int32,System.Int32,System.Double,System.Nullable{System.Double},System.Nullable{System.Boolean})">
             <summary>
             Retourne la garantie
+            Nécessite Token Header
             </summary>
             <param name="BirthDay">Date de naissance. L'âge du candidat à l'assurance doit être compris entre 18 et 60 ans pour souscrire.</param>
             <param name="IdProf">Profession. Id de la profession (ex : 1020)</param>
@@ -538,17 +548,22 @@
         <member name="M:Tarificateur.Controllers.ProfessionsController.GetProfessions">
             <summary>
             Retourne la liste professions
+            Nécessite Token Header
             </summary>
         </member>
         <member name="M:Tarificateur.Controllers.StatutsController.GetStatuts">
             <summary>
             Retourne la listes des statuts
+            Nécessite Token Header
             </summary>
         </member>
         <member name="M:Tarificateur.Controllers.StatutsController.GetStatuts(System.Int32)">
             <summary>
             Retourne la listes des statuts pour un IdProf
+            Nécessite Token Header
             </summary>
+            <param name="IdProf"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

@@ -4,12 +4,37 @@
         <name>Business</name>
     </assembly>
     <members>
-        <member name="M:Business.Common.Tools.CreateToken(Business.Entities.User,System.Object@)">
+        <member name="T:Business.Common.Tools.DbUser">
+            <summary>
+            Information utilisateur
+            </summary>
+        </member>
+        <member name="P:Business.Common.Tools.DbUser.Email">
+            <summary>
+            Email utilisateur
+            </summary>
+        </member>
+        <member name="P:Business.Common.Tools.DbUser.Id">
+            <summary>
+            Id Utilisateur
+            </summary>
+        </member>
+        <member name="T:Business.Common.Tools.LoginResult">
+            <summary>
+            Retour avec Token
+            </summary>
+        </member>
+        <member name="P:Business.Common.Tools.LoginResult.Token">
+            <summary>
+            Token à utiliser pour l'appel à toutes les autres api
+            Ajouter dans le Header : Authorization = {Token}
+            </summary>
+        </member>
+        <member name="M:Business.Common.Tools.CreateToken(Business.Entities.User)">
             <summary>
             Create a Jwt with user information
             </summary>
             <param name="user"></param>
-            <param name="dbUser"></param>
             <returns></returns>
         </member>
         <member name="M:Business.Common.Tools.CreateSalt">
@@ -68,7 +93,7 @@
         </member>
         <member name="P:Business.Entities.Garantie.Age">
             <summary>
-            la variable Age se calcule par différence entre l'année d'établissement du devis et l'année de naissance (age millésime)
+            La variable Age se calcule par différence entre l'année d'établissement du devis et l'année de naissance (age millésime)
             </summary>
         </member>
         <member name="P:Business.Entities.Garantie.IdProf">
