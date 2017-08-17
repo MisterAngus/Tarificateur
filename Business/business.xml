@@ -51,6 +51,21 @@
             <param name="salt"></param>
             <returns></returns>
         </member>
+        <member name="F:Business.Entities.Garantie.RENTEEDUCATION.reAucune">
+            <summary>
+            Aucune rente
+            </summary>
+        </member>
+        <member name="F:Business.Entities.Garantie.RENTEEDUCATION.re8_12">
+            <summary>
+            La rente éducation 8/12 est égale à 8% du traitement de base jusqu'à 17 ans et 12% du traitement de base de 18 à 20 ans (jusqu’à 26 ans si poursuite d’études).
+            </summary>
+        </member>
+        <member name="F:Business.Entities.Garantie.RENTEEDUCATION.re15_20_25">
+            <summary>
+            La rente éducation dite rente 15/20/25 est égale à 15% du traitement de base jusqu'à 10 ans, 20% du traitement base de 11 à 17 ans et 25% du traitement de base de 18 à 20 ans (jusqu’à 26 ans si poursuite d’études).
+            </summary>
+        </member>
         <member name="P:Business.Entities.Garantie.Detail.Name">
             <summary>
             Type de garantie

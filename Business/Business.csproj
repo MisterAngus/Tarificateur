@@ -43,9 +43,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="JWT, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\JWT.2.4.2\lib\net35\JWT.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -85,6 +82,10 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{4aca12eb-8ea7-4a4f-bd9d-78ac3366002b}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JWT\JWT.csproj">
+      <Project>{824d6c8c-3449-48c8-9c0c-631ea01e22cb}</Project>
+      <Name>JWT</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

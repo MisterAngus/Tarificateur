@@ -52,6 +52,11 @@ namespace Tarificateur.Controllers
             /// </summary>
             [DefaultValue(false)]
             public bool? Salarie { get; set; } = false;
+            /// <summary>
+            /// Deux niveaux de rentes éducation sont proposés dont le but est de prévoir en cas de décès de l'adhérent le versement périodique d'une rente aux enfants à charge de celui-ci.
+            /// </summary>
+            [DefaultValue(0)]
+            public Business.Entities.Garantie.RENTEEDUCATION? RenteEducation { get; set; } = 0;
         }
 
         /// <summary>
@@ -63,7 +68,7 @@ namespace Tarificateur.Controllers
         [HttpPost]
         public Business.Entities.Garantie GetGaranties([FromBody] Parameter parameter)
         {
-            Business.Entities.Garantie garantie = new Business.Entities.Garantie(parameter.BirthDay, parameter.IdProf, parameter.IdStatut, parameter.NbPass, parameter.TxCourtier, parameter.Salarie);
+            Business.Entities.Garantie garantie = new Business.Entities.Garantie(parameter.BirthDay, parameter.IdProf, parameter.IdStatut, parameter.NbPass, parameter.TxCourtier, parameter.Salarie, parameter.RenteEducation);
             garantie.Calculate();
 
             return garantie;
@@ -79,11 +84,12 @@ namespace Tarificateur.Controllers
         /// <param name="NbPass">Montant annuel à assurer (traitement de base). Le montant du traitement de base à assurer doit correspondre au revenu net déclaré à l'administration fiscale l'année N-1( rémunération, dividendes…) éventuellement majoré d'au plus 80%.</param>
         /// <param name="TxCourtier">Taux courtier. Entre 0 et 3% (ex : 0.11)</param>
         /// <param name="Salarie">Tout entrepreneur qui emploie au moins un salarié bénéficie de l'avantage Employeur : -10% appliqués sur la garantie incapacité et rachat de franchise.</param>
+        /// <param name="RenteEducation">Deux niveaux de rentes éducation sont proposés dont le but est de prévoir en cas de décès de l'adhérent le versement périodique d'une rente aux enfants à charge de celui-ci.</param>
         /// <returns></returns>
         [HttpGet]
-        public Business.Entities.Garantie GetGaranties(DateTime BirthDay, int IdProf, int IdStatut, double NbPass, double? TxCourtier = 0, bool? Salarie = false)
+        public Business.Entities.Garantie GetGaranties(DateTime BirthDay, int IdProf, int IdStatut, double NbPass, double? TxCourtier = 0, bool? Salarie = false, Business.Entities.Garantie.RENTEEDUCATION? RenteEducation = 0)
         {
-            Business.Entities.Garantie garantie = new Business.Entities.Garantie(BirthDay, IdProf, IdStatut, NbPass, TxCourtier, Salarie);
+            Business.Entities.Garantie garantie = new Business.Entities.Garantie(BirthDay, IdProf, IdStatut, NbPass, TxCourtier, Salarie, RenteEducation);
             garantie.Calculate();
 
             return garantie;

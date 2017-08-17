@@ -36,7 +36,7 @@
 <div id="pForm" class="panel panel-primary">
     <div class="panel-heading">
         <h4 style="display:inline-block;">Exemple</h4>
-        <a href="# "class="pull-right" id="btLogout" style="color:white;">Déconnexion</a>
+        <a href="# " class="pull-right" id="btLogout" style="color:white;">Déconnexion</a>
     </div>
     <div class="panel-body">
         <div class="form-horizontal">
@@ -73,6 +73,21 @@
                 @Html.Label("tbPass", "Montant annuel à assurer", htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-4">
                     <select id="tbPass" class="form-control calculate"></select>
+                </div>
+            </div>
+
+            <div id="renteEducation" class="form-group">
+                @Html.Label("rbRente", "Rente éducation", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-4">
+                    <label class="radio-inline">
+                        <input class="calculate" type="radio" name="renteEducation" id="renteEducation1" value="0" checked="checked">Aucune
+                    </label>
+                    <label class="radio-inline">
+                        <input class="calculate" type="radio" name="renteEducation" id="renteEducation2" value="1">8/12
+                    </label>
+                    <label class="radio-inline">
+                        <input class="calculate" type="radio" name="renteEducation" id="renteEducation3" value="2">15/20/25
+                    </label>
                 </div>
             </div>
 
@@ -188,9 +203,9 @@
             $("#tbPass option").remove();
             $("#tbPass").append($("<option></option>"));
             var maxpass = $("#tbStatut option:selected").attr("maxpass");
-            for (i = 0; i <= maxpass; i = i + 0.1)
+            for (i = 1; i <= (maxpass * 10); i = i + 1)
             {
-                var val = Math.round(i * 100) / 100;
+                var val = i / 10;
                 $("#tbPass").append($("<option></option>").text(val).val(val));
             }
         }
@@ -207,8 +222,8 @@
                     IdStatut: $("#tbStatut").val() * 1,
                     NbPass: $("#tbPass").val() * 1,
                     TxCourtier: $("#tbTauxCourtier").val() * 1,
-                    Salarie: $("#cbSalarie").is(':checked')
-
+                    Salarie: $("#cbSalarie").is(':checked'),
+                    RenteEducation: $('input[name=renteEducation]:checked').val()
                 });
 
                 $.ajax({
@@ -276,6 +291,17 @@
             }
         }
 
+        function CheckRente()
+        {
+            var pass = $("#tbPass").val() * 1;
+            if (pass > 1 && pass <= 3) {
+                $('#renteEducation').show();
+            }
+            else {
+                $('input[name="renteEducation"][value="0"]').prop('checked', true);
+                $('#renteEducation').hide();
+            }
+        }
 
         $(document).ready(function () {
             $('#tbBirthDay').datepicker({
@@ -285,11 +311,13 @@
             $("#tbBirthDay").focusout(GetMontant);
             $("#tbProfession").change(PopulateStatut);
             $("#tbStatut").change(PopulatePass);
+            $("#tbPass").change(CheckRente);
             $('.calculate').change(GetMontant);
             $('#btLogin').click(Login);
             $('#btLogout').click(Logout);
 
             CheckToken();
+            CheckRente();
 
         });
     </script>

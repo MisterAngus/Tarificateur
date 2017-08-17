@@ -46,6 +46,23 @@ namespace Business.Entities
         private double TxCourtier = 0;
         private bool Salarie = false;
 
+        public enum RENTEEDUCATION
+        {
+            /// <summary>
+            /// Aucune rente
+            /// </summary>
+            reAucune = 0,
+            /// <summary>
+            /// La rente éducation 8/12 est égale à 8% du traitement de base jusqu'à 17 ans et 12% du traitement de base de 18 à 20 ans (jusqu’à 26 ans si poursuite d’études).
+            /// </summary>
+            re8_12 = 1,
+            /// <summary>
+            /// La rente éducation dite rente 15/20/25 est égale à 15% du traitement de base jusqu'à 10 ans, 20% du traitement base de 11 à 17 ans et 25% du traitement de base de 18 à 20 ans (jusqu’à 26 ans si poursuite d’études).
+            /// </summary>
+            re15_20_25 = 2
+        }
+
+
         public class Detail
         {
             /// <summary>
@@ -199,6 +216,8 @@ namespace Business.Entities
             set { }
         }
 
+        public RENTEEDUCATION RenteEducation { get; set; }
+
         [IgnoreDataMember]
         public int? NoBase
         {
@@ -238,9 +257,10 @@ namespace Business.Entities
             IdStatut = 1;
             NbPass = 1.1;
             TxCourtier = 0.11;
+            RenteEducation = RENTEEDUCATION.reAucune;
             Calculate();
         }
-        public Garantie(DateTime birthDay, int idProf, int idStatut, double nbPass, double? txCourtier, bool? salarie)
+        public Garantie(DateTime birthDay, int idProf, int idStatut, double nbPass, double? txCourtier, bool? salarie, RENTEEDUCATION? renteEducation)
         {
             BirthDay = birthDay;
             IdProf = idProf;
@@ -248,6 +268,7 @@ namespace Business.Entities
             NbPass = nbPass;
             TxCourtier = txCourtier ?? 0;
             Salarie = salarie ?? false;
+            RenteEducation = renteEducation ?? RENTEEDUCATION.reAucune;
         }
 
         public void Calculate()
@@ -286,6 +307,10 @@ namespace Business.Entities
                 Details = new List<Detail>();
                 var tarifBaseAges = Lists.Tarifs.GetBaseAges(PackName, Age, IdTarifLigne);
                 double txTotal = 1 - (txAssureur + txCipres + txGestion + TxCourtier);
+                if (Pack == PACK.PPI && RenteEducation != RENTEEDUCATION.reAucune)
+                {
+                    TypePrevs.Add(new TypePrev() { canDiscount = false, noBase = 32, nTypePrev = RenteEducation == RENTEEDUCATION.re8_12 ? "631" : "632" });
+                }
 
                 foreach (var typePrev in TypePrevs)
                 {
@@ -346,7 +371,14 @@ namespace Business.Entities
                 }
 
                 //Total euros
-                Amount = NbPass <= 1 ? total.Tx[0] * NbPass * PASS : (total.Tx[0] * PASS) + (total.Tx[1] * (NbPass - 1) * PASS);
+                if (NbPass > 3)
+                {
+                    Amount = 0;
+                }
+                else
+                {
+                    Amount = NbPass <= 1 ? total.Tx[0] * NbPass * PASS : (total.Tx[0] * PASS) + (total.Tx[1] * (NbPass - 1) * PASS);
+                }
                 Amount = Math.Round(Amount / 100 / 12, 2);
 
                 Details.Add(total);
